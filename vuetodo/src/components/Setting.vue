@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>我是首页</h3>
+<h2>Setting</h2>
   </div>
 </template>
 

@@ -1,30 +1,37 @@
 <template>
   <div id="app">
-    <router-link to="/">首页</router-link>
-    <router-link :to="{name: 'edit'}">编辑</router-link>
+    <Navbar></Navbar>
     <!-- vue-router提供，表示渲染路由组件的出口 -->
-    <router-view></router-view>
+    <div class="container">
+      <!-- Page Content goes here -->
+      <router-view></router-view>
+    </div>
+
   </div>
 </template>
 
 <script>
-    
+import Navbar from './components/Navbar'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      activeIndex1: '1'
+    }
+  },
+  methods: {
+
+  },
   components: {
-    
+    Navbar
   }
+
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+a {
+  text-decoration: none;
 }
 </style>
