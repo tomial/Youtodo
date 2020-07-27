@@ -1,6 +1,8 @@
 package com.tomial.youtodoserver.exceptions;
 
-public class InvalidNicknameException extends RuntimeException {
+import org.springframework.security.core.AuthenticationException;
+
+public class InvalidNicknameException extends AuthenticationException {
   public InvalidNicknameException() {
     super("Invalid Nickname!");
   }

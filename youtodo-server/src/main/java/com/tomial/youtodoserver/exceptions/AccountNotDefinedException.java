@@ -1,6 +1,8 @@
 package com.tomial.youtodoserver.exceptions;
 
-public class AccountNotDefinedException extends RuntimeException {
+import org.springframework.security.core.AuthenticationException;
+
+public class AccountNotDefinedException extends AuthenticationException {
   public AccountNotDefinedException() {
     super("Account Not Defined!");
   }
