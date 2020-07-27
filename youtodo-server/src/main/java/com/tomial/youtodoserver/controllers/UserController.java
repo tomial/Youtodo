@@ -1,36 +1,67 @@
 package com.tomial.youtodoserver.controllers;
 
-import com.tomial.youtodoserver.exceptions.PasswordNotDefinedException;
-import com.tomial.youtodoserver.models.User;
-import com.tomial.youtodoserver.repositories.UserRepository;
+import com.tomial.youtodoserver.beans.ModifyEmailRequestBean;
+import com.tomial.youtodoserver.beans.ModifyNicknameRequestBean;
+import com.tomial.youtodoserver.beans.ModifyPasswordRequestBean;
+import com.tomial.youtodoserver.beans.ResponseMessage;
+import com.tomial.youtodoserver.models.TodoUser;
+import com.tomial.youtodoserver.services.UserService;
+import java.security.Principal;
+import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllArgsConstructor
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
-  private UserRepository userRepository;
+  private final UserService userService;
 
-  public UserController(UserRepository userRepository) {
-    this.userRepository = userRepository;
+  @GetMapping("/{id}") // 获取用户信息
+  @CrossOrigin
+  //  @UserOrAdmin
+  @PreAuthorize(
+      "@todoUserRepository.findUserIdByUsername(#principal.name).equals(#id)"
+          + "or hasRole('ADMIN')")
+  public TodoUser getUser(@PathVariable Long id, Principal principal) {
+    System.out.println(principal.getName() + " accessed " + id + "'s information");
+    return userService.findUser(id);
   }
 
-  @GetMapping("user/{id}")
-  @CrossOrigin
-  public User getUser(@PathVariable Long id) {
-    return userRepository.findById(id).get();
+  //  TODO 设置邮箱
+  @PutMapping("/email")
+  @PreAuthorize(
+      "@todoUserRepository.findUserIdByUsername(#principal.name).equals(#requestBean.getId())"
+          + "or hasRole('ADMIN')")
+  public ResponseMessage setEmail(
+      @RequestBody ModifyEmailRequestBean requestBean, Principal principal) {
+    return userService.setEmail(requestBean);
   }
 
-  @PostMapping("/user")
-  @CrossOrigin
-  public User createUser(@RequestBody User user) throws PasswordNotDefinedException {
-    if (user.getPassword() == null) {
-      throw new PasswordNotDefinedException();
-    }
-    return userRepository.save(user);
+  //  TODO 更改密码
+  @PutMapping("/password")
+  @PreAuthorize(
+      "@todoUserRepository.findUserIdByUsername(#principal.name).equals(#requestBean.getId())"
+          + "or hasRole('ADMIN')")
+  public ResponseMessage setPassword(
+      @RequestBody ModifyPasswordRequestBean requestBean, Principal principal) {
+    return userService.setPassword(requestBean);
+  }
+
+  //  TODO 设置昵称
+  @PutMapping("/nickname")
+  @PreAuthorize(
+      "@todoUserRepository.findUserIdByUsername(#principal.name).equals(#requestBean.getId())"
+          + "or hasRole('ADMIN')")
+  public ResponseMessage setNickname(
+      @RequestBody ModifyNicknameRequestBean requestBean, Principal principal) {
+    return userService.setNickname(requestBean);
   }
 }
