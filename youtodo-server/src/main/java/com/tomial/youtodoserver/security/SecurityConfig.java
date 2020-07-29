@@ -34,13 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .disable()
         .authorizeRequests()
           .antMatchers("/").permitAll()
+          .antMatchers("/login/**").permitAll()
           .antMatchers("/register").permitAll() // 注册API
+          .antMatchers("/h2-console/**").permitAll()
           .anyRequest()
           .authenticated()
         .and()
           .formLogin()
-        // .loginPage("/login_page")
-          .loginProcessingUrl("/login").permitAll() // 处理登陆请求的地址
+          .loginPage("/login")
+          .loginProcessingUrl("/login") // 处理登陆请求的地址
         .and()
           .rememberMe()
           .key("test")
@@ -48,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .logout()
           .clearAuthentication(true)
           .invalidateHttpSession(true)
-          .deleteCookies("JSESSIONID", "remember-me")
+          .deleteCookies("SESSION", "remember-me")
           .logoutUrl("/logout");
   }
 

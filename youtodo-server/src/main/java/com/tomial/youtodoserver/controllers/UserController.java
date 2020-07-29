@@ -26,7 +26,6 @@ public class UserController {
 
   @GetMapping("/{id}") // 获取用户信息
   @CrossOrigin
-  //  @UserOrAdmin
   @PreAuthorize(
       "@todoUserRepository.findUserIdByUsername(#principal.name).equals(#id)"
           + "or hasRole('ADMIN')")
@@ -35,7 +34,7 @@ public class UserController {
     return userService.findUser(id);
   }
 
-  //  TODO 设置邮箱
+  //  设置邮箱
   @PutMapping("/email")
   @PreAuthorize(
       "@todoUserRepository.findUserIdByUsername(#principal.name).equals(#requestBean.getId())"
@@ -45,7 +44,7 @@ public class UserController {
     return userService.setEmail(requestBean);
   }
 
-  //  TODO 更改密码
+  //  更改密码
   @PutMapping("/password")
   @PreAuthorize(
       "@todoUserRepository.findUserIdByUsername(#principal.name).equals(#requestBean.getId())"
@@ -55,7 +54,7 @@ public class UserController {
     return userService.setPassword(requestBean);
   }
 
-  //  TODO 设置昵称
+  //  设置昵称
   @PutMapping("/nickname")
   @PreAuthorize(
       "@todoUserRepository.findUserIdByUsername(#principal.name).equals(#requestBean.getId())"
