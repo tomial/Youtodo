@@ -6,7 +6,10 @@
         :size="40"
         :src="circleUrl"
       ></el-avatar>
-      <div class="name">未登录</div>
+      <router-link
+        to='/login'
+        class="name"
+      >未登录</router-link>
     </div>
 
     <el-menu
@@ -75,9 +78,11 @@ export default {
   /* background-color: #e3e3e3; */
   display: flex;
 }
-.name{
+.name {
+  display: block;
   align-self: center;
   margin-left: 5px;
   font-size: 12px;
+  cursor: pointer;
 }
 </style>
