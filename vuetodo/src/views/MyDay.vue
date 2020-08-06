@@ -1,35 +1,44 @@
 <template>
-  <div>My day</div>
+  <div id="content">
+    <h1>My Day</h1>
+    <BaseInputText> </BaseInputText>
+
+    <TodoListItem> </TodoListItem>
+  </div>
+
 </template>
 
 <script>
+import BaseInputText from "@/components/BaseInputText.vue";
+import TodoListItem from "../components/TodoListItem"
 export default {
   name: 'Home',
   data() {
     return {
 
-
     }
   },
-
+  components: {
+    BaseInputText,
+    TodoListItem
+  },
   methods: {
 
   },
 }
 </script>
 <style scoped>
-.home {
-  /* background-image: url("../assets/todo-bg.jpg"); */
-  /* background-size: cover */
-  background-color: #ffe4e9;
-  position: relative;
-}
-ul {
+* {
+  margin: 0;
   padding: 0;
 }
-.completed {
-  text-decoration: line-through;
-  color: #e3e3e3;
+#content {
+  background-color: #f1f1f1;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 1rem;
 }
 </style>
 

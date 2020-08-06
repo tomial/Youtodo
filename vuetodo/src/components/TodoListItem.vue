@@ -1,46 +1,86 @@
 <template>
-  <li class="wp">
-    <el-checkbox :checked="todo.completed"></el-checkbox>
-    <label :class="{done: todo.completed}">{{todo.text}}</label>
-    <el-button class="delete" type="danger" icon="el-icon-delete" circle @click="$emit('remove', todo.id)"></el-button>
-  </li>
+  <ul>
+    <el-row
+      v-for="(todo, index) in todos"
+      :key="index"
+      class="list"
+      style="width: 85%; margin: 4px auto"
+    >
+      <el-col :span="16">
+        <el-checkbox
+          v-model="todo.completed"
+          :label="todo.text"
+        ></el-checkbox>
+        <!-- <div>{{todo.text}}</div> -->
+      </el-col>
+      <el-col :span="8">
+        <i
+          class="el-icon-delete hover"
+          @click="delTodo(index)"
+        >删除</i>
+      </el-col>
+    </el-row>
+
+  </ul>
+
+  <!-- <el-table>
+    <el-table-column>
+
+    </el-table-column>
+    <el-table-column></el-table-column>
+    <el-table-column></el-table-column>
+  </el-table> -->
+
 </template>
 
 <script>
-  export default {
-    model:{
-      prop: 'checked',
-      event: 'change'
+export default {
+  data() {
+    return {
+      todos: [
+        {
+          // id: 1,
+          text: "学习JavaScript",
+          completed: true,
+        },
+        {
+          text: "学习Vue.js"
+        }
+      ],
+      idHover: false
+    }
+  },
+  methods: {
+    delTodo(index) {
+      this.todos.splice(index, 1);
     },
-    props:{
-      todo:{
-        type: Object,
-        required: true,
-      },
-      
-    } 
+
+  },
+  mounted() {
+    this.$bus.$on("addItem", (todoText) => {
+      let todo = {
+        // id: this.len + 1,
+        text: todoText,
+        completed: false,
+      };
+      this.todos.push(todo);
+
+      console.log(JSON.stringify(this.todos));
+    })
   }
+}
 </script>
 
 <style scoped>
-  .wp{
-    display: block;
-    text-decoration: none;
-    font-size: 30px; 
-    line-height: 50px;
-    background-color: #fff;
-    margin: 3px auto;
-    width: 80%;
-    position: relative;
-  } 
-
-  .delete{
-    position: absolute;
-    right: 5px;
-    margin-top: 4px;
-  }
-  .done{
-    text-decoration: line-through;
-  }
-
+.hover {
+  color: blue;
+}
+.list {
+  height: 30px;
+  line-height: 30px;
+}
+.list:hover {
+  background-color: #e3e3e3;
+  color: black;
+}
 </style>

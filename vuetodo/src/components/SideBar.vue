@@ -85,4 +85,7 @@ export default {
   font-size: 12px;
   cursor: pointer;
 }
+.tac {
+  overflow: hidden;
+}
 </style>

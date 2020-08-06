@@ -1,12 +1,10 @@
 <template >
-
+  <h1>Login</h1>
 </template>
 
 <script>
-import { dialog } from "../components/dialog";
 export default {
   components: {
-    dialog,
   }
 }
 </script>

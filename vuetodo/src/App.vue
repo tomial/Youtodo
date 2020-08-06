@@ -1,24 +1,27 @@
 <template>
   <div id="app">
     <div class="wrapper">
-      <div id="aside-nav">
-        <!-- <router-link to="/">Home</router-link>
+
+      <!-- <router-link to="/">Home</router-link>
         <router-link to="/about">About</router-link> -->
-        <SideBar></SideBar>
-      </div>
+      <SideBar id="bar"></SideBar>
       <router-view id="content" />
     </div>
   </div>
 </template>
 <script>
-import  SideBar  from "./components/SideBar";
-export default{
+import SideBar from "./components/SideBar";
+export default {
   components: {
     SideBar,
   }
 }
 </script>
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -31,7 +34,8 @@ export default{
   background-size: cover;
 }
 
-.wrapper{
+.wrapper {
+  /* display: -webkit-flex; Safari */
   display: flex;
   width: 70%;
   margin: 50px auto;
@@ -39,28 +43,24 @@ export default{
   background-color: white;
   /* border-radius: 8px; */
   justify-content: space-between;
+  /* background-color: #e3e3e3; */
 }
-#content{
+#content {
   /* margin-left: 20px; */
   /* background-color: #e3e3e3; */
   width: 80%;
-}
-#aside-nav {
-  /* padding: 30px; */
-  width: 20%;
-  /* background-color: rgba(0,0,0,0.4); */
-  /* border-radius: 8px; */
-  
+  padding: 12px;
 }
 
-#aside-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  display: block;
+@media screen and (max-width: 750px) {
+  #bar {
+    /* visibility: hidden; */
+    display: none;
+  }
+  #content {
+    /* margin-left: 20px; */
+    /* background-color: #e3e3e3; */
+    width: 100%;
+  }
 }
-
-#aside-nav a.router-link-exact-active {
-  color: #236d4b;
-}
-
 </style>

@@ -5,8 +5,12 @@ import App from './App.vue'
 import router from './router'
 import store from './vuex/app'
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, {
+  size: 'large',
+  zIndex: 3000
+});
 Vue.config.productionTip = false
+Vue.prototype.$bus = new Vue();
 
 new Vue({
   router,
