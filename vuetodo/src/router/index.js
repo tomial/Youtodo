@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MyDay from '../views/MyDay'
-import Login from '../views/Login'
+// import Login from '../views/Login'
 
 Vue.use(VueRouter)
 
@@ -45,10 +45,7 @@ const routes = [{
     name: 'Flagged',
     component: () => import('../views/FlaggedEmail.vue')
   },
-  {
-    path: '/login',
-    component: Login,
-  }
+
 
 ]
 
